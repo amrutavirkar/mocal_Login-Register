@@ -4,22 +4,55 @@ import google from "../assets/Image150.png";
 import micro from "../assets/Image151.png";
 const SignInForm = () => {
   const [screen, setScreen] = useState(0);
-
+  const [email, setEmail] = useState('');
+  const [errors, setErrors] = useState({});
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [country, setCountry] = useState('');
+  const [city, setCity] = useState('');
+  const [companyName, setCompanyName] = useState('');
+  const [companyUrl, setCompanyUrl] = useState('');
   const FormScreen1 = () => {
+    const validateForm = () => {
+      const errors = {};
+  
+      // Validate email
+      if (!email) {
+        errors.email = 'Email is required';
+      } else if (!/\S+@\S+\.\S+/.test(email)) {
+        errors.email = 'Invalid email address';
+      }
+    
+      setErrors(errors);
+  
+      return Object.keys(errors).length === 0; // Return true if there are no errors
+    };
+    const handleSubmit = (e) => {
+      e.preventDefault();
+              
+      if (validateForm()) {
+        setScreen(1);
+        // Form is valid, perform started logic here
+        console.log('Successfuly Get started!');
+      }
+    };
     return (
-      <div className="grid gap-y-8">
-        <input
-          className="focus:border-purple-400 rounded-md border py-3 px-4 text-slate-200 outline-none transition placeholder:text-slate-400 w-96"
+      <form className="register-form p-4 md:p-5 lg:p-6" onSubmit={handleSubmit}>
+          <div className="grid gap-y-3  justify-center">
+            <img className="w-fit justify-self-center my-8" src={logo} />
+            <div className="grid gap-y-8">
+        <div className="form-group">
+        <input type="text" name="email" value={email} onChange={(e) => setEmail(e.target.value)}
+          className="focus:border-purple-400 rounded-md border py-3 px-4 outline-none transition placeholder:text-slate-400 w-96"
           placeholder="enter email address "
         />
-
-        <button
-          className="flex w-fit justify-self-center bg-purple-400 items-center justify-center gap-x-2 rounded-md border py-3 px-4 text-white transition "
-          onClick={(e) => {
-            e.preventDefault();
-            setScreen(1);
-          }}
-        >
+        {errors.email && <span className="error">{errors.email}</span>}
+        </div>
+        <button type="submit"
+          className="flex w-fit justify-self-center bg-purple-400 items-center justify-center gap-x-2 rounded-md border py-3 px-4 text-white transition ">
           GET STARTED
         </button>
         <div className="my-3 flex items-center px-3">
@@ -38,78 +71,230 @@ const SignInForm = () => {
           </button>
         </div>
       </div>
+            </div>
+            </form>
     );
   };
   const FormScreen3 = () => {
+    const validateForm = () => {
+      const errors = {};
+      if (country.trim() === '') {
+        errors.country = 'Country is required';
+      }
+  
+      if (city.trim() === '') {
+        errors.city = 'City is required';
+      }
+  
+      if (companyName.trim() === '') {
+        errors.companyName = 'Company name is required';
+      }
+  
+      if (companyUrl.trim() === '') {
+        errors.companyUrl = 'Company URL is required';
+      } else if (!/^https?:\/\/(?:www\.)?[a-zA-Z0-9-]+\.[a-zA-Z]{2,}(?:\/\S*)?$/.test(companyUrl)) {
+        errors.companyUrl = 'Invalid company URL';
+      }
+      setErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+            
+    if (validateForm()) {
+      // setScreen(1);
+      // Form is valid, perform stared logic here
+      console.log('Form Register Successfuly!');
+    }
+  };
     return (
       <>
+      <form className=" register-form p-4 md:p-5 lg:p-6" onSubmit={handleSubmit}>
+          <div className="grid gap-y-3  justify-center">
+            <img className="w-fit justify-self-center my-8" src={logo} />
         <div className="grid gap-y-8 ">
           <div className="flex flex-row justify-evenly gap-12">
-            <input
-              className="focus:border-purple-400 rounded-md border py-3 px-4 text-slate-200 outline-none transition placeholder:text-slate-400 w-48"
+            <div className="form-group">
+            <input type="text" value={companyName} onChange={(e) => setCompanyName(e.target.value)}
+              className="focus:border-purple-400 rounded-md border py-3 px-4 outline-none transition placeholder:text-slate-400 w-48"
               placeholder="company name"
             />
-            <input
-              className="focus:border-purple-400 rounded-md border py-3 px-4 text-slate-200 outline-none transition placeholder:text-slate-400 w-48"
+            {errors.companyName && <span className="error">{errors.companyName}</span>}            
+            </div>
+            <div className="form-group">
+            <input type="text" value={companyUrl} onChange={(e) => setCompanyUrl(e.target.value)}
+              className="focus:border-purple-400 rounded-md border py-3 px-4 outline-none transition placeholder:text-slate-400 w-48"
               placeholder="company website "
             />
+            {errors.companyUrl && <span className="error">{errors.companyUrl}</span>}
+            </div>
+            
           </div>
           <div className="flex flex-row justify-evenly gap-12">
-            <select
-              name=""
+            <div className="form-group">
+            <select name="" value={country} onChange={(e) => setCountry(e.target.value)}
               className="focus:border-purple-400 rounded-md border py-3 px-4 text-black bg-white outline-none transition placeholder:text-black w-48"
             >
-              <option value="">country</option>
+              <option value="">Select Country</option>
+              <option value="in">India</option>
+              <option value="canada">Canada</option>
+              <option value="uk">UK</option>
             </select>
-            <select
-              name=""
+            {errors.country && <span className="error">{errors.country}</span>}
+            </div>
+            <div className="form-group">
+            <select name="" value={city} onChange={(e) => setCity(e.target.value)}
               className="focus:border-purple-400 rounded-md border py-3 px-4 text-black bg-white outline-none transition placeholder:text-black w-48"
             >
-              <option value="">city</option>
+              <option value="">Select City</option>
+          {country === 'in' && (
+            <>
+              <option value="newyork">Pune</option>
+              <option value="losangeles">Mumbai</option>
+            </>
+          )}
+          {country === 'canada' && (
+            <>
+              <option value="toronto">Toronto</option>
+              <option value="vancouver">Vancouver</option>
+            </>
+          )}
+          {country === 'uk' && (
+            <>
+              <option value="london">London</option>
+              <option value="manchester">Manchester</option>
+            </>
+          )}
             </select>
+            {errors.city && <span className="error">{errors.city}</span>}
+            </div>
           </div>
 
-          <button className="mt-48 flex w-fit justify-self-center bg-purple-400 items-center justify-center gap-x-2 rounded-md border py-3 px-4 text-white transition ">
+          <button type="submit" className="mt-48 flex w-fit justify-self-center items-center justify-center gap-x-2 rounded-md border py-3 px-4 text-white transition ">
             Register
           </button>
         </div>
+        <div className="flex  justify-center mt-8 gap-x-2 rounded-md  text-black transition ">
+              By creating a MoCak account,
+              <a
+              href="/"
+              className="flex  justify-center mt-8 gap-x-2 rounded-md  text-black transition "
+            >you agree to
+              <a href="/" className="text-blue-500"
+              >
+                MoCal’s Terms
+              </a>
+              and 
+              <a href="/" className="text-blue-500">Privacy Policy</a>
+              </a>
+            </div>
+        </div>
+        </form>
       </>
     );
   };
 
   const FormScreen2 = () => {
+    const validateForm = () => {
+      const errors = {};
+  
+      if (firstName.trim() === '') {
+        errors.firstName = 'First name is required';
+      }
+  
+      if (lastName.trim() === '') {
+        errors.lastName = 'Last name is required';
+      }
+  
+      if (phone.trim() === '') {
+        errors.phone = 'Phone number is required';
+      } else if (!/^\d{10}$/.test(phone)) {
+        errors.phone = 'Phone number is invalid';
+      }
+  
+      if (email.trim() === '') {
+        errors.email = 'Email is required';
+      } else if (!/\S+@\S+\.\S+/.test(email)) {
+        errors.email = 'Email is invalid';
+      }
+      if (password.trim() === '') {
+        errors.password = 'Password is required';
+      } else if (password.length < 6) {
+        errors.password = 'Password must be at least 6 characters long';
+      }
+  
+      if (confirmPassword.trim() === '') {
+        errors.confirmPassword = 'Confirm password is required';
+      } else if (confirmPassword !== password) {
+        errors.confirmPassword = 'Passwords do not match';
+      }
+  
+      setErrors(errors);
+      return Object.keys(errors).length === 0;
+    };
+    const handleSubmit = (e) => {
+      e.preventDefault();
+              
+      if (validateForm()) {
+        setScreen(2);
+        // Form is valid, perform stared logic here
+        console.log('Continue!');
+      }
+    };
+
     return (
       <>
+      <form className="register-form p-4 md:p-5 lg:p-6" onSubmit={handleSubmit}>
+          <div className="grid gap-y-3  justify-center">
+            <img className="w-fit justify-self-center my-8" src={logo} />
         <div className="grid gap-y-8 ">
           <div className="flex flex-row justify-evenly gap-12">
-            <input
-              className="focus:border-purple-400 rounded-md border py-3 px-4 text-slate-200 outline-none transition placeholder:text-slate-400 w-48"
+            <div className="form-group">
+            <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)}
+              className="focus:border-purple-400 rounded-md border py-3 px-4 outline-none transition placeholder:text-slate-400 w-48"
               placeholder="first name"
             />
-            <input
-              className="focus:border-purple-400 rounded-md border py-3 px-4 text-slate-200 outline-none transition placeholder:text-slate-400 w-48"
+            {errors.firstName && <span className="error">{errors.firstName}</span>}
+            </div>
+            <div className="form-group">
+            <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)}
+              className="focus:border-purple-400 rounded-md border py-3 px-4 outline-none transition placeholder:text-slate-400 w-48"
               placeholder="last name "
             />
+            {errors.lastName && <span className="error">{errors.lastName}</span>}
+            </div>
           </div>
           <div className="flex flex-row justify-evenly gap-12">
-            <input
-              className="focus:border-purple-400 rounded-md border py-3 px-4 text-slate-200 outline-none transition placeholder:text-slate-400 w-48"
+            <div className="form-group">
+            <input type="text" value={phone} onChange={(e) => setPhone(e.target.value)}
+              className="focus:border-purple-400 rounded-md border py-3 px-4 outline-none transition placeholder:text-slate-400 w-48"
               placeholder="phone"
             />
-            <input
-              className="focus:border-purple-400 rounded-md border py-3 px-4 text-slate-200 outline-none transition placeholder:text-slate-400 w-48"
+            {errors.phone && <span className="error">{errors.phone}</span>}
+            </div>
+            <div className="form-group">
+            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)}
+              className="focus:border-purple-400 rounded-md border py-3 px-4 outline-none transition placeholder:text-slate-400 w-48"
               placeholder="email "
             />
+            {errors.email && <span className="error">{errors.email}</span>}
+            </div>
           </div>
           <div className="flex flex-row justify-evenly gap-12">
-            <input
-              className="focus:border-purple-400 rounded-md border py-3 px-4 text-slate-200 outline-none transition placeholder:text-slate-400 w-48"
+            <div className="form-group">
+            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)}
+              className="focus:border-purple-400 rounded-md border py-3 px-4 outline-none transition placeholder:text-slate-400 w-48"
               placeholder="password"
             />
-            <input
-              className="focus:border-purple-400 rounded-md border py-3 px-4 text-slate-200 outline-none transition placeholder:text-slate-400 w-48"
+            {errors.password && <span className="error">{errors.password}</span>}
+            </div>
+            <div className="form-group">
+            <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}
+              className="focus:border-purple-400 rounded-md border py-3 px-4 outline-none transition placeholder:text-slate-400 w-48"
               placeholder="confirm password"
             />
+            {errors.confirmPassword && <span className="error">{errors.confirmPassword}</span>}
+            </div>
           </div>
           <ul className="flex flex-col">
             <li className="text-red-500 mt-2">
@@ -119,16 +304,13 @@ const SignInForm = () => {
               No need for symbols,digits,uppercase
             </li>
           </ul>
-          <button
-            className="mt-48 flex w-fit justify-self-center bg-purple-400 items-center justify-center gap-x-2 rounded-md border py-3 px-4 text-white transition "
-            onClick={(e) => {
-              e.preventDefault();
-              setScreen(2);
-            }}
-          >
+          <button type="submit"
+            className="mt-48 flex w-fit justify-self-center items-center justify-center gap-x-2 rounded-md border py-3 px-4 text-white transition ">
             Continue
           </button>
         </div>
+        </div>
+        </form>
       </>
     );
   };
@@ -141,12 +323,9 @@ const SignInForm = () => {
   return (
     <div className="grid place-items-center px-4 text-sm font-medium w-full">
       <div className="w-full rounded-2xl bg-white shadow">
-        <form className="p-4 md:p-5 lg:p-6">
-          <div className="grid gap-y-3  justify-center">
-            <img className="w-fit justify-self-center my-8" src={logo} />
+
             {array[screen]}
-          </div>
-        </form>
+  
       </div>
     </div>
   );

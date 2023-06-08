@@ -3,39 +3,76 @@ import logo from "../assets/MocalLogo.png";
 import google from "../assets/Image150.png";
 import micro from "../assets/Image151.png";
 import { useNavigate } from "react-router-dom";
+import './Form.css';
+import React, { useState } from 'react';
 const Form = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errors, setErrors] = useState({});
+  const validateForm = () => {
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    const errors = {};
+
+    // Validate email
+    if (!email) {
+      errors.email = 'Email is required';
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      errors.email = 'Invalid email address';
+    }
+
+    // Validate password
+    if (!password) {
+      errors.password = 'Password is required';
+    } else if (!passwordRegex.test(password)) {
+      errors.password = 'Password must contain at least 8 characters, including one uppercase letter, one lowercase letter, one digit, and one special character.';
+    } else {
+      errors.password = '';
+    }
+
+    setErrors(errors);
+
+    return Object.keys(errors).length === 0; // Return true if there are no errors
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (validateForm()) {
+      // Form is valid, perform login logic here
+      console.log('Login successful!');
+    }
+  };
   const navigate = useNavigate();
   return (
-    <div className="grid place-items-center px-4 text-sm font-medium w-full">
-      <div className="w-full rounded-2xl bg-white shadow">
-        <form className="p-4 md:p-5 lg:p-6">
+    <div className="container grid place-items-center px-4 text-sm font-medium w-full">
+      <div className="row justify-content-center w-full rounded-2xl bg-white shadow logDiv">
+        <div className="col-md-8">
+        <form className=" login-form p-4 md:p-5 lg:p-6" onSubmit={handleSubmit}>
           <div className="grid gap-y-3  justify-center">
             <img className="w-fit justify-self-center my-8" src={logo} />
 
             <div className="grid gap-y-5">
-              <input
-                className="focus:border-purple-400 rounded-md border py-3 px-4 text-slate-200 outline-none transition placeholder:text-slate-400"
-                placeholder="enter email address "
-              />
-              <input
-                className="focus:border-purple-400 rounded-md border py-3 px-4 text-slate-200 outline-none transition placeholder:text-slate-400"
-                placeholder="enter password"
-              />
+              <div className="form-group">
+                <input type="text" value={email} onChange={(e) => setEmail(e.target.value)}
+                  className="form-control focus:border-purple-400 rounded-md border py-3 px-4 outline-none transition placeholder:text-slate-400"
+                  placeholder="enter email address "
+                />
+                {errors.email && <span className="error">{errors.email}</span>}
+              </div>
+              <div className="form-group">
+                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)}
+                  className="form-control focus:border-purple-400 rounded-md border py-3 px-4 outline-none transition placeholder:text-slate-400"
+                  placeholder="enter password"
+                />
+                {errors.password && <span className="error">{errors.password}</span>}
+              </div>
               <a
                 href="/"
                 className="flex  items-start justify-start gap-x-2 rounded-md  text-blue-500 transition "
               >
                 Forgot Password ?
               </a>
-              <button className="flex w-fit justify-self-center bg-purple-400 items-center justify-center gap-x-2 rounded-md border py-3 px-4 text-white transition ">
-              <a
-                className="text-blue-500"
-                onClick={(e) => {
-                    e.preventDefault();
-                  navigate("/signin");
-                }}
-              >LOG IN
-              </a>
+              <button type="submit" disabled={!validateForm} className="flex w-fit justify-self-center items-center justify-center gap-x-2 rounded-md border py-3 px-4 text-white transition ">
+              LOG IN
               </button>
             </div>
             <div className="my-3 flex items-center px-3">
@@ -70,6 +107,7 @@ const Form = () => {
             </a>
           </div>
         </form>
+        </div>
       </div>
     </div>
   );
