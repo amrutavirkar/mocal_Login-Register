@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import './Form.css';
 import React, { useState } from 'react';
 const Form = () => {
+  const history = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({});
@@ -18,6 +19,8 @@ const Form = () => {
       errors.email = 'Email is required';
     } else if (!/\S+@\S+\.\S+/.test(email)) {
       errors.email = 'Invalid email address';
+    }else {
+      errors.email = '';
     }
 
     // Validate password
@@ -37,18 +40,18 @@ const Form = () => {
     e.preventDefault();
 
     if (validateForm()) {
-      // Form is valid, perform login logic here
+      // history.push('/signin');      // Form is valid, perform login logic here
       console.log('Login successful!');
     }
   };
   const navigate = useNavigate();
   return (
-    <div className="container grid place-items-center px-4 text-sm font-medium w-full">
+    <div className="container grid place-items-center px-1 text-sm font-medium w-full">
       <div className="row justify-content-center w-full rounded-2xl bg-white shadow logDiv">
         <div className="col-md-8">
-        <form className=" login-form p-4 md:p-5 lg:p-6" onSubmit={handleSubmit}>
-          <div className="grid gap-y-3  justify-center">
-            <img className="w-fit justify-self-center my-8" src={logo} />
+        <form className=" login-form" onSubmit={handleSubmit}>
+          <div className="grid gap-y-2  justify-center">
+            <img className="w-fit justify-self-center my-1" src={logo} />
 
             <div className="grid gap-y-5">
               <div className="form-group">
@@ -69,7 +72,7 @@ const Form = () => {
                 href="/"
                 className="flex  items-start justify-start gap-x-2 rounded-md  text-blue-500 transition "
               >
-                Forgot Password ?
+                Forgot Password?
               </a>
               <button type="submit" disabled={!validateForm} className="flex w-fit justify-self-center items-center justify-center gap-x-2 rounded-md border py-3 px-4 text-white transition ">
               LOG IN
@@ -80,14 +83,14 @@ const Form = () => {
               <span className="mx-3 text-purple-500">OR</span>
               <hr className="w-full border-purple-500" />
             </div>
-            <div className="flex flex-row gap-4 mt-8">
-              <button className="flex items-center justify-center gap-x-2 rounded-3xl border border-slate-600 py-3 px-8 text-gray-500 transition hover:text-purple-400">
-                <img src={micro} />
-                Sign in with Microsoft
-              </button>
-              <button className="flex items-center justify-center gap-x-2 rounded-3xl border border-slate-600 py-3 px-8 text-gray-500 transition hover:text-purple-400">
+            <div className="flex flex-row gap-2 mt-6">
+              <button className="google flex items-center justify-center gap-x-1 rounded-3xl border border-slate-600 text-gray-500 transition hover:text-purple-400">
                 <img src={google} />
                 Sign in with Google
+              </button>
+              <button className="micro flex items-center justify-center gap-x-1 rounded-3xl border border-slate-600 text-gray-500 transition hover:text-purple-400">
+                <img src={micro} />
+                Sign in with Microsoft
               </button>
             </div>
             <a

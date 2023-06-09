@@ -1,3 +1,7 @@
+.container{
+  padding-top: 135px;
+  margin: -30px;
+}
 .logDiv{
     background: #FFFFFF 0% 0% no-repeat padding-box;
     box-shadow: 0px 0px 10px #00000029;
@@ -25,7 +29,23 @@
     font-size: 14px;
     margin-top: 5px;
   }
-  
+  .google{
+    padding-left: 17px;
+    font-size: 12px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+  .micro{
+    padding-left: 17px;
+    font-size: 12px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+  img{
+    margin-left: -10px;
+  }
   button[type="submit"] {
     background-color: #6E0D88;
     cursor: pointer;

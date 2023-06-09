@@ -24,6 +24,8 @@ const SignInForm = () => {
         errors.email = 'Email is required';
       } else if (!/\S+@\S+\.\S+/.test(email)) {
         errors.email = 'Invalid email address';
+      }else {
+        errors.email = '';
       }
     
       setErrors(errors);
@@ -80,20 +82,28 @@ const SignInForm = () => {
       const errors = {};
       if (country.trim() === '') {
         errors.country = 'Country is required';
+      }else {
+        errors.country = '';
       }
   
       if (city.trim() === '') {
         errors.city = 'City is required';
+      }else {
+        errors.city = '';
       }
   
       if (companyName.trim() === '') {
         errors.companyName = 'Company name is required';
+      }else {
+        errors.companyName = '';
       }
   
       if (companyUrl.trim() === '') {
         errors.companyUrl = 'Company URL is required';
       } else if (!/^https?:\/\/(?:www\.)?[a-zA-Z0-9-]+\.[a-zA-Z]{2,}(?:\/\S*)?$/.test(companyUrl)) {
         errors.companyUrl = 'Invalid company URL';
+      }else {
+        errors.companyUrl = '';
       }
       setErrors(errors);
     return Object.keys(errors).length === 0;
@@ -196,37 +206,51 @@ const SignInForm = () => {
 
   const FormScreen2 = () => {
     const validateForm = () => {
+      const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
       const errors = {};
   
       if (firstName.trim() === '') {
         errors.firstName = 'First name is required';
+      }else {
+        errors.firstName = '';
       }
   
       if (lastName.trim() === '') {
         errors.lastName = 'Last name is required';
+      }else {
+        errors.lastName = '';
       }
   
       if (phone.trim() === '') {
         errors.phone = 'Phone number is required';
       } else if (!/^\d{10}$/.test(phone)) {
         errors.phone = 'Phone number is invalid';
+      }else {
+        errors.phone = '';
       }
   
       if (email.trim() === '') {
         errors.email = 'Email is required';
       } else if (!/\S+@\S+\.\S+/.test(email)) {
         errors.email = 'Email is invalid';
+      }else {
+        errors.email = '';
       }
-      if (password.trim() === '') {
+      
+      if (!password) {
         errors.password = 'Password is required';
-      } else if (password.length < 6) {
-        errors.password = 'Password must be at least 6 characters long';
+      } else if (!passwordRegex.test(password)) {
+        errors.password = 'Password must contain at least 8 characters, including one uppercase letter, one lowercase letter, one digit, and one special character.';
+      } else {
+        errors.password = '';
       }
   
       if (confirmPassword.trim() === '') {
         errors.confirmPassword = 'Confirm password is required';
       } else if (confirmPassword !== password) {
         errors.confirmPassword = 'Passwords do not match';
+      }else {
+        errors.confirmPassword = '';
       }
   
       setErrors(errors);

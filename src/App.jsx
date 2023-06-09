@@ -3,6 +3,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Login from "./pages/Login";
 import SignIn from "./pages/SignIn";
+import './App.css';
 
 const App = () => {
   const router = createBrowserRouter([
@@ -21,7 +22,7 @@ const App = () => {
   ]);
 
   return (
-    <div className="h-screen bg-[url('./assets/main.jpg')] bg-no-repeat bg-center bg-cover flex">
+    <div className="flex">
       <RouterProvider router={router} />
     </div>
   );
