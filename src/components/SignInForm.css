@@ -24,7 +24,10 @@
     background-color: #6E0D88;
     cursor: pointer;
   }
-  
+  .contanier{
+    padding-top: 100px!important;
+    margin: -30px!important;
+  }
   @media (max-width: 480px) {
     /* Styles for smaller screens */
     .login-form {

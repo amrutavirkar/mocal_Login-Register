@@ -3,6 +3,11 @@ import logo from "../assets/MocalLogo.png";
 import google from "../assets/Image150.png";
 import micro from "../assets/Image151.png";
 const SignInForm = () => {
+  const contanier = {
+    margin: '-30px',
+    paddingTop: '100px',
+  };
+
   const [screen, setScreen] = useState(0);
   const [email, setEmail] = useState('');
   const [errors, setErrors] = useState({});
@@ -43,9 +48,9 @@ const SignInForm = () => {
     };
     return (
       <form className="register-form p-4 md:p-5 lg:p-6" onSubmit={handleSubmit}>
-          <div className="grid gap-y-3  justify-center">
-            <img className="w-fit justify-self-center my-8" src={logo} />
-            <div className="grid gap-y-8">
+          <div className="grid gap-y-2  justify-center">
+            <img className="w-fit justify-self-center my-1" src={logo} />
+            <div className="grid gap-y-5">
         <div className="form-group">
         <input type="text" name="email" value={email} onChange={(e) => setEmail(e.target.value)}
           className="focus:border-purple-400 rounded-md border py-3 px-4 outline-none transition placeholder:text-slate-400 w-96"
@@ -120,9 +125,9 @@ const SignInForm = () => {
     return (
       <>
       <form className=" register-form p-4 md:p-5 lg:p-6" onSubmit={handleSubmit}>
-          <div className="grid gap-y-3  justify-center">
-            <img className="w-fit justify-self-center my-8" src={logo} />
-        <div className="grid gap-y-8 ">
+          <div className="grid gap-y-2  justify-center">
+            <img className="w-fit justify-self-center my-1" src={logo} />
+        <div className="grid gap-y-5 ">
           <div className="flex flex-row justify-evenly gap-12">
             <div className="form-group">
             <input type="text" value={companyName} onChange={(e) => setCompanyName(e.target.value)}
@@ -269,9 +274,9 @@ const SignInForm = () => {
     return (
       <>
       <form className="register-form p-4 md:p-5 lg:p-6" onSubmit={handleSubmit}>
-          <div className="grid gap-y-3  justify-center">
-            <img className="w-fit justify-self-center my-8" src={logo} />
-        <div className="grid gap-y-8 ">
+        <div className="grid gap-y-2  justify-center">
+            <img className="w-fit justify-self-center my-1" src={logo} />
+        <div className="grid gap-y-5 ">
           <div className="flex flex-row justify-evenly gap-12">
             <div className="form-group">
             <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)}
@@ -345,7 +350,7 @@ const SignInForm = () => {
     <FormScreen3 key={""} />,
   ];
   return (
-    <div className="grid place-items-center px-4 text-sm font-medium w-full">
+    <div className="contanier grid place-items-center px-1 text-sm font-medium w-full" style={contanier}>
       <div className="w-full rounded-2xl bg-white shadow">
 
             {array[screen]}
