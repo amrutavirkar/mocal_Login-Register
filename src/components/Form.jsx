@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import './Form.css';
 import React, { useState } from 'react';
 const Form = () => {
-  const history = useNavigate();
+  const navigateTo = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({});
@@ -40,7 +40,7 @@ const Form = () => {
     e.preventDefault();
 
     if (validateForm()) {
-      // history.push('/signin');      // Form is valid, perform login logic here
+      navigateTo('/signin')      // Form is valid, perform login logic here
       console.log('Login successful!');
     }
   };
@@ -74,7 +74,7 @@ const Form = () => {
               >
                 Forgot Password?
               </a>
-              <button type="submit" disabled={!validateForm} className="flex w-fit justify-self-center items-center justify-center gap-x-2 rounded-md border py-3 px-4 text-white transition ">
+              <button type="submit" className="flex w-fit justify-self-center items-center justify-center gap-x-2 rounded-md border py-3 px-4 text-white transition ">
               LOG IN
               </button>
             </div>
